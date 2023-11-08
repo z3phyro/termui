@@ -3,7 +3,7 @@ package widgets
 import (
 	"image"
 
-	. "github.com/gizak/termui/v3"
+	. "github.com/z3phyro/termui"
 )
 
 type ScrollBox struct {
