@@ -32,13 +32,13 @@ func (self *ScrollBox) Draw(buf *Buffer) {
 	}
 
 	rows := SplitCells(cells, '\n')[self.ScrollYPosition:]
+	self.RowsAmount = len(rows)
 
 	for y, row := range rows {
 		if y+self.Inner.Min.Y >= self.Inner.Max.Y {
 			break
 		}
 		row = TrimCells(row, self.Inner.Dx())
-		self.RowsAmount = len(row)
 		for _, cx := range BuildCellWithXArray(row) {
 			x, cell := cx.X, cx.Cell
 			buf.SetCell(cell, image.Pt(x, y).Add(self.Inner.Min))
@@ -52,12 +52,12 @@ func (self *ScrollBox) ScrollAmount(amount int) {
 
 func (self *ScrollBox) ScrollUp() {
 	if self.ScrollYPosition > 0 {
-		self.ScrollAmount(-1)
+		self.ScrollAmount(-3)
 	}
 }
 
 func (self *ScrollBox) ScrollDown() {
-	if self.ScrollYPosition < self.RowsAmount-(self.Inner.Max.Y-self.Inner.Min.Y) {
-		self.ScrollAmount(1)
+	if self.ScrollYPosition < self.RowsAmount {
+		self.ScrollAmount(3)
 	}
 }
